@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f8b6a110-459d-4d74-bb75-853537040607" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/git/如何使用github.md" beforeDir="false" afterPath="$PROJECT_DIR$/git/如何使用github.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/img_7.png" beforeDir="false" afterPath="$PROJECT_DIR$/git/img_7.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +58,12 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/git/photo" />
+      <recent name="$PROJECT_DIR$/test" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -67,7 +72,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1653231450324</updated>
-      <workItem from="1653231451631" duration="3005000" />
+      <workItem from="1653231451631" duration="3176000" />
     </task>
     <servers />
   </component>
