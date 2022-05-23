@@ -1,0 +1,16 @@
+## IDEA常用快捷键
+- Shift+方向键，进行选中
+- Alt+方向键，进行移动
+- Ctrl+D/X，剪切此行；Ctrl+C,复制此行；Ctrl+Z,回退操作；Ctrl+V,粘贴内容;
+- Ctrl+/,此行加注释；Ctrl+Shift+/，选中段落加注释
+- Ctrl+y,反撤销;Ctrl+h,查找全局
+- Ctrl+E,查看最近访问文件列表
+- Ctrl+O,查看类的结构
+- Alt+Enter,提示操作
+- Alt+Insert,常用插入操作面板
+- 在任何工具窗口都可以使用Esc键把焦点移到编辑器上；Shift+Esc,不仅会将焦点移动到编辑器上还会隐藏当前工具窗口。
+- Ctrl+Alt+V,将代码中的提取出来
+- 可以右键菜单中Local  History查看代码历史。
+- F4查看继承关系
+- Ctrl+Shift+h,查看方法在哪里被调用
+- 右键->Git->Annotate with...可以查看代码的历史
