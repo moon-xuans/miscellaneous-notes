@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8b6a110-459d-4d74-bb75-853537040607" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/git/如何使用github.md" beforeDir="false" afterPath="$PROJECT_DIR$/git/如何使用github.md" afterDir="false" />
-    </list>
+    <list default="true" id="f8b6a110-459d-4d74-bb75-853537040607" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,6 +58,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/git/如何使用github" />
       <recent name="$PROJECT_DIR$/git/photo" />
       <recent name="$PROJECT_DIR$/test" />
     </key>
@@ -73,6 +72,7 @@
       <option name="presentableId" value="Default" />
       <updated>1653231450324</updated>
       <workItem from="1653231451631" duration="3176000" />
+      <workItem from="1653264709933" duration="513000" />
     </task>
     <servers />
   </component>
