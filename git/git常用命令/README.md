@@ -25,3 +25,8 @@
 - git commit -m ""将暂存区的代码提交到本地仓库
 当推到远程仓库的时候，若此提交低于仓库提交，可以强制性推上去，此时会删除掉远程仓库的最新提交
 - git push origin 分支 --force将该分支强制性推上去
+
+### 用户相关的
+- git config --list 查看配置
+- git config --global user.name(email) 查看全局的用户名或者邮箱
+- git config --global --replace-all user.name "xxx" 修改全局的用户名或者邮箱

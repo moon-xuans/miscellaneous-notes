@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8b6a110-459d-4d74-bb75-853537040607" name="Changes" comment="" />
+    <list default="true" id="f8b6a110-459d-4d74-bb75-853537040607" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/git/git常用命令/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/git/git常用命令/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,6 +56,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
@@ -74,6 +78,9 @@
       <workItem from="1653231451631" duration="3176000" />
       <workItem from="1653264709933" duration="513000" />
       <workItem from="1653265561242" duration="21000" />
+      <workItem from="1653290739206" duration="901000" />
+      <workItem from="1653362677738" duration="1350000" />
+      <workItem from="1653398517675" duration="731000" />
     </task>
     <servers />
   </component>

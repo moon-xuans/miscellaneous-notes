@@ -1,0 +1,102 @@
+1.SpringBoot的自动装配
+	我们可以从以下几个方面回答：
+		1.什么是 SpringBoot 自动装配？
+		2.SpringBoot 是如何实现自动装配的？如何实现按需加载？
+		3.如何实现一个 Starter？
+	
+	没有 Spring Boot 的时候，我们写一个 RestFul Web 服务，还首先需要进行配置。但是，Spring Boot 项目，我们只需要添加相关依赖，无需配置，通过启动main 方法即可。并且，我们通过 Spring Boot 的全局配置文件 application.properties或application.yml即可对项目进行设置比如更换端口号，配置 JPA 属性等等。
+	
+	为什么 Spring Boot 使用起来这么酸爽呢？ 这得益于其自动装配。自动装配可以说是 Spring Boot 的核心，那究竟什么是自动装配呢？
+	
+	1.什么是SpringBoot自动装配？
+		我们现在提到自动装配的时候，一般会和 Spring Boot 联系在一起。但是，实际上 Spring Framework 早就实现了这个功能。Spring Boot 只是在其基础上，通过 SPI 的方式，做了进一步优化。
+		
+		没有 Spring Boot 的情况下，如果我们需要引入第三方依赖，需要手动配置，非常麻烦。但是，Spring Boot 中，我们直接引入一个 starter 即可。比如你想要在项目中使用 redis 的话，直接在项目中引入对应的 starter 即可。
+
+		引入 starter 之后，我们通过少量注解和一些简单的配置就能使用第三方组件提供的功能了。 在我看来，自动装配可以简单理解为：通过注解或者一些简单的配置就能在 Spring Boot 的帮助下实现某块功能。
+
+	2.SpringBoot是如何实现自动装配的？
+		我们先看一下 SpringBoot 的核心注解 SpringBootApplication 。
+		
+		大概可以把 @SpringBootApplication看作是 @Configuration、@EnableAutoConfiguration、@ComponentScan 注解的集合。根据 SpringBoot 官网，这三个注解的作用分别是： 
+			1.@EnableAutoConfiguration：启用 SpringBoot 的自动配置机制 
+			2.@Configuration：允许在上下文中注册额外的 bean 或导入其他配置类 
+			3.@ComponentScan： 扫描被@Component (@Service,@Controller)注解的 bean，注解默认会扫描启动类所在的包下所有的类 ，可以自定义不扫描某些 bean。容器中将排除TypeExcludeFilter和AutoConfigurationExcludeFilter。
+
+		@EnableAutoConfiguration 是实现自动装配的重要注解，我们以这个注解入手。 
+		
+		@EnableAutoConfiguration:实现自动装配的核心注解 EnableAutoConfiguration 只是一个简单地注解，自动装配核心功能的实现实际是通过 AutoConfigurationImportSelector类。
+
+		我们现在重点分析下AutoConfigurationImportSelector 类到底做了什么？ 
+		#AutoConfigurationImportSelector:加载自动装配类 AutoConfigurationImportSelector类的继承体系如下：
+
+		可以看出，AutoConfigurationImportSelector 类实现了 ImportSelector接口，也就实现了这个接口中的 selectImports方法，该方法主要用于获取所有符合条件的类的全限定类名，这些类需要被加载到 IoC 容器中。
+
+		这里我们需要重点关注一下getAutoConfigurationEntry()方法，这个方法主要负责加载自动配置类的。
+		
+		现在我们结合getAutoConfigurationEntry()的源码来详细分析一下：
+		
+		第 1 步: 判断自动装配开关是否打开。默认spring.boot.enableautoconfiguration=true，可在 application.properties 或 application.yml 中设置
+		第 2 步 ：
+		用于获取EnableAutoConfiguration注解中的 exclude 和 excludeName。
+		第 3 步
+		获取需要自动装配的所有配置类，读取META-INF/spring.factories
+			从下图可以看到这个文件的配置内容都被我们读取到了。XXXAutoConfiguration的作用就是按需加载组件。
+			不光是这个依赖下的META-INF/spring.factories被读取到，所有 Spring Boot Starter 下的META-INF/spring.factories都会被读取到。 所以，你可以清楚滴看到， druid 数据库连接池的 Spring Boot Starter 就创建了META-INF/spring.factories文件。 如果，我们自己要创建一个 Spring Boot Starter，这一步是必不可少的。
+		第 4 步 ： 到这里可能面试官会问你:“spring.factories中这么多配置，每次启动都要全部加载么？”。 很明显，这是不现实的。我们 debug 到后面你会发现，configurations 的值变小了。
+			因为，这一步有经历了一遍筛选，@ConditionalOnXXX 中的所有条件都满足，该类才会生效。
+
+	3.如何实现一个 Starter
+		光说不练假把式，现在就来撸一个 starter，实现自定义线程池
+
+		第一步，创建threadpool-spring-boot-starter工程
+		第二步，引入 Spring Boot 相关依赖
+		第三步，创建ThreadPoolAutoConfiguration
+		第四步，在threadpool-spring-boot-starter工程的 resources 包下创建META-INF/spring.factories文件
+		最后新建工程引入threadpool-spring-boot-starter
+
+		测试通过！！！
+
+	总结 Spring Boot 通过@EnableAutoConfiguration开启自动装配，通过 SpringFactoriesLoader 最终加载META-INF/spring.factories中的自动配置类实现自动装配，自动配置类其实就是通过@Conditional按需加载的配置类，想要其生效必须引入spring-boot-starter-xxx包实现起步依赖
+2.spring和springboot的注解
+	1.SpringBean相关
+		1.@Autowired
+			自动导入对象到类中，被注入进的类同样要被 Spring 容器管理比如：Service 类注入到 Controller 类中。
+		2.@Component,@Repository,@Service, @Controller 		
+			我们一般使用 @Autowired 注解让 Spring 容器帮我们自动装配bean。要想把类标识成可用于@Autowired 注解自动装配的bean的类,可以采用以下注解实现： 
+			1.@Component ：通用的注解，可标注任意类为 Spring组件。如果一个Bean不知道属于哪个层，可以使用@Component 注解标注。 
+			2.@Repository : 对应持久层即 Dao 层，主要用于数据库相关操作。 
+			3.@Service : 对应服务层，主要涉及一些复杂的逻辑，需要用到 Dao 层。 
+			4.@Controller : 对应 Spring MVC 控制层，主要用于接受用户请求并调用 Service 层返回数据给前端页面。
+		3.@RestController 	
+			@RestController注解是@Controller和@ResponseBody的合集,表示这是个控制器 bean,并且是将函数的返回值直接填入 HTTP 响应体中,是 REST 风格的控制器。 
+			
+			Guide哥：现在都是前后端分离，说实话我已经很久没有用过@Controller。如果你的项目太老了的话，就当我没说。 
+			
+			单独使用 @Controller 不加 @ResponseBody的话一般是用在要返回一个视图的情况，这种情况属于比较传统的SpringMVC的应用，对应于前后端不分离的情况。@Controller +@ResponseBody 返回 JSON 或 XML 形式数据
+		4.@Scope
+			声明 Spring Bean 的作用域
+			
+			四种常见的 Spring Bean 的作用域： 
+			1.singleton : 唯一 bean 实例，Spring 中的 bean 默认都是单例的。 
+			2.prototype : 每次请求都会创建一个新的 bean 实例。 
+			3.request : 每一次 HTTP 请求都会产生一个新的 bean，该 bean 仅在当前 HTTP request 内有效。 
+			4.session : 每一个 HTTP Session 会产生一个新的 bean，该 bean 仅在当前 HTTP session 内有效
+		5.@Configuration
+			一般用来声明配置类，可以使用 @Component注解替代，不过使用@Configuration注解声明配置类更加语义化。
+	2.处理常见的HTTP请求类型
+		1.5 种常见的请求类型: 
+			1.GET ：请求从服务器获取特定资源。
+			2.POST ：在服务器上创建一个新的资源。
+			3.PUT：更新服务器上的资源（客户端提供更新后的整个资源）。
+			4.DELETE ：从服务器删除特定的资源。
+			5.PATCH：更新服务器上的资源（客户端提供更改的属性，可以看做作是部分更新），使用的比较少，这里就不举例子了
+	3.前后端传值
+		1.@PathVariable 和 @RequestParam
+			@PathVariable用于获取路径参数，@RequestParam用于获取查询参数。
+			举个简单的例子：
+			如果我们请求的 url 是：/klasses/123456/teachers?type=web
+			那么我们服务获取到的数据就是：klassId=123456,type=web
+		2.@RequestBody 
+			用于读取 Request 请求（可能是 
+			POST,PUT,DELETE,GET 请求）的 body 部分并且Content-Type 为 application/json 格式的数据，接收到数据之后会自动将数据绑定到 Java 对象上去。系统会使用HttpMessageConverter或者自定义的HttpMessageConverter将请求的 body 中的 json 字符串转换为 java 对象。

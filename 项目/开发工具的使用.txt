@@ -1,0 +1,76 @@
+Git	
+	1.获取Git仓库
+		1.在现有目录中初始化仓库：进行项目目录运行 git init
+		2.从一个服务器克隆一个现由的Git仓库：git clone [url]
+	2.记录每次更新到仓库
+		检测当前文件装填：git status
+		提出更改（把它们添加到暂存区）:git add filename(针对特定文件)、git add *(所有文件)
+		提交更新：git commit -m "代码提交信息"(每次准备提交前，先用git status看下，是不是都已暂存起来了，然后再运行提交命令git commit)
+		跳过使用暂存区域更新的方式：git commit -a -m "代码提交信息"
+		移除文件：git rm filename (从暂存区域移除，然后提交)
+		对文件重命名：git mv READ.md README
+	3.推送改动到远程仓库
+		如果你还没有克隆现由仓库，并欲将你的仓库连接到某个远程服务器，你可以使用如下命令添加：git remote add origin <server>
+		将这些改动提交到远程仓库：git push origin master(可以把master换成你想要推送的任何分支)
+	4.远程仓库的移除与重命名
+		将test重命名为test1:git remote rename test test1
+		移除远程仓库test1：git remote rm test1
+	5.查看提交历史
+		只看某个人的提交记录：git log --author = bob
+	6.撤销操作：
+		当提交完才发现漏掉几个文件没有添加，或者提交信息写错了，可以尝试重新提交：git commit --amend
+		取消暂存的文件：git reset filename
+		撤销对文件的修改：git checkout -- filename
+		假如你想丢弃你在本地的所有改动与提交，可以到服务器上获取最新的版本历史，并将你本地主分支指向它：git fetch origin / git reset --hard origin/master
+	7.分支操作：
+		创建一个名字叫做test：git branch test
+		切换当前分支到test：git checkout test
+		可以直接创建分支并切换过去：git checkout -b feature_x
+		切换到主分支：git checkout master
+		合并分支（可能会有冲突）:git merge test
+		把新建的分支删掉：git branch -d feature_x
+		将分支推送到远端仓库（推送成功后其他人可见）:git push origin
+	8.git stash的用法
+		1.缘起
+			综合下网上的介绍和资料，git stash（git储藏）可用于以下情形：
+				a.发现有一个类是多余的，想删掉它又担心以后需要查看它的代码，想保存它但又不想增加一个脏的提交。这时就可以考虑git stash。
+				b.使用git的时候，我们往往使用分支（branch）解决任务切换问题，例如，我们往往会建一个自己的分支去修改和调试代码, 如果别人或者自己发现原有的分支上有个不得不修改的bug，我们往往会把完成一半的代码commit提交到本地仓库，然后切换分支去修改bug，改好之后再切换回来。这样的话往往log上会有大量不必要的记录。其实如果我们不想提交完成一半或者不完善的代码，但是却不得不去修改一个紧急Bug，那么使用git stash就可以将你当前未提交到本地（和服务器）的代码推入到Git的栈中，这时候你的工作区间和上一次提交的内容是完全一样的，所以你可以放心的修Bug，等到修完Bug，提交到服务器上后，再使用git stash apply将以前一半的工作应用回来。
+				c.经常有这样的事情发生，当你正在进行项目中某一部分的工作，里面的东西处于一个比较杂乱的状态，而你想转到其他分支上进行一些工作。问题是，你不想提交进行了一半的工作，否则以后你无法回到这个工作点。解决这个问题的办法就是git stash命令。储藏(stash)可以获取你工作目录的中间状态——也就是你修改过的被追踪的文件和暂存的变更——并将它保存到一个未完结变更的堆栈中，随时可以重新应用。
+		2.git stash用法
+			1. stash当前修改
+				git stash会把所有未提交的修改（包括暂存的和非暂存的）都保存起来，用于后续恢复当前工作目录。
+				比如下面的中间状态，通过git stash命令推送一个新的储藏，当前的工作目录就干净了。
+				
+				需要说明一点，stash是本地的，不会通过git push命令上传到git server上。实际应用中推荐给每个stash加一个message，用于记录版本，使用git stash save取代git stash命令。
+			2.重新应用缓存的stash
+				可以通过git stash pop命令恢复之前缓存的工作目录		
+				这个指令将缓存堆栈中的第一个stash删除，并将对应修改应用到当前的工作目录下。你也可以使用git stash apply命令，将缓存堆栈中的stash多次应用到工作目录中，但并不删除stash拷贝。
+			3.查看现有stash
+				可以使用git stash list命令
+				
+				在使用git stash apply命令时可以通过名字指定使用哪个stash，默认使用最近的stash（即stash@{0}）。
+			4.移除stash
+				可以使用git stash drop命令，后面可以跟着stash名字。
+				
+				或者使用git stash clear命令，删除所有缓存的stash。
+			5.查看指定stash的diff
+				可以使用git stash show命令，后面可以跟着stash名字。
+				在该命令后面添加-p或--patch可以查看特定stash的全部diff
+			6.从stash创建分支
+				如果你储藏了一些工作，暂时不去理会，然后继续在你储藏工作的分支上工作，你在重新应用工作时可能会碰到一些问题。如果尝试应用的变更是针对一个你那之后修改过的文件，你会碰到一个归并冲突并且必须去化解它。如果你想用更方便的方法来重新检验你储藏的变更，你可以运行 git stash branch，这会创建一个新的分支，检出你储藏工作时的所处的提交，重新应用你的工作，如果成功，将会丢弃储藏。
+				这是一个很棒的捷径来恢复储藏的工作然后在新的分支上继续当时的工作。
+			7.暂存未跟踪或忽略的文件
+				默认情况下，git stash会缓存下列文件：
+					a.添加到暂存区的修改（staged changes）
+					b.Git跟踪的但并未添加到暂存区的修改（unstaged changes）
+					
+				但不会缓存一下文件：
+					a.在工作目录中新的文件（untracked files）
+					b.被忽略的文件（ignored files）
+					
+				git stash命令提供了参数用于缓存上面两种类型的文件。使用-u或者--include-untracked可以stash untracked文件。使用-a或者--all命令可以stash当前目录下的所有修改。
+
+				至于git stash的其他命令建议参考Git manual。
+
+		3.小结
+			git提供的工具很多，恰好用到就可以深入了解下。更方便的开发与工作的。

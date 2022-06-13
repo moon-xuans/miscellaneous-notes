@@ -1,0 +1,13 @@
+Spring AOP 的原理很简单，就是**动态代理**，它和 AspectJ 不一样，AspectJ 是直接修改掉你的字节码。
+Spring AOP 需要做的是生成这么一个代理类，然后**替换掉**真实实现类来对外提供服务。
+
+替换的过程怎么理解呢？在 Spring IOC 容器中非常容易实现，就是在 getBean(…) 的时候返回的实际上是代理类的实例，而这个代理类我们自己没写代码，它是 Spring 采用 JDK Proxy 或 CGLIB 动态生成的。
+
+每个 advisor 内部持有 advice 实例，advisor 负责匹配，内部的 advice 负责实现拦截处理
+
+在 Spring IOC 源码分析的时候说过，BeanPostProcessor 的两个方法，分别在 init-method 的前后得到执行。
+
+也就是说，Spring AOP 会在 IOC 容器创建 bean 实例的最后对 bean 进行处理。其实就是在这一步进行代理增强。
+
+ InstantiationAwareBeanPostProcessor 的执行时机要前面一些
+ 这里是有可能创建代理的，但前提是对于相应的 bean 我们有自定义的 TargetSource 实现，进到 getCustomTargetSource(...) 方法就清楚了，我们需要配置一个 customTargetSourceCreators，它是一个 TargetSourceCreator 数组。

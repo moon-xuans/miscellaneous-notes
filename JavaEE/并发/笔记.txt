@@ -1,0 +1,215 @@
+一、八股文
+	1.线程的三种创建方式：
+		1.继承Thread类
+			继承后，需要重写run方法，编写线程执行体，创建线程对象，调用start方法
+		2.实现Runnable接口
+			新建一个Runnable接口实现类，编写run方法，创建线程对象，作为它的参数，然后调用start方法
+		3.实现Callable接口
+			过程：新建一个Callable接口的实现类，将其作为FutureTask对象ft的参数，然后将ft作为thread对象的参数调用start方法
+			原因：FutureTask类实现了RunnableFuture接口，并且FutureTask类其中的一个构造方法中，需要传入一个Callable类型的参数。而RunnableFuture接口，继承了Runnable，Future接口
+			
+			与Runnable的区别：是否有返回值、是否抛异常、方法不一样一个call一个run
+	2.线程的生命周期：
+		1.新建（NEW）
+		2.可运行（RUNNABLE）
+		3.运行（RUNNING）
+		4.阻塞（BLOCKED）
+		5.死亡（DEAD）
+	3.线程状态
+		1.NEW:未启动
+		2.RUNNABLE：执行中
+		3.BLOCKED：阻塞
+		4.WAITING：等待
+		5.TIMED_WAITING：超时
+		6.TERMINATED：已退出
+	4.死锁
+		定义：是指两个或两个以上的进程在执行过程中，因争夺资源而造成的一种互相等待的现象（若无外力作用，它们都将无法推进下去）
+		四个条件：
+			互斥条件：一个资源每次只能被一个进程所使用的
+			请求与保持条件：一个进程因请求资源而阻塞时，对已获得的资源保持不放。
+			不剥夺条件：进程已获得的资源，在未使用完之前，不能强行剥夺。
+			循环等待条件：若干线程之间形成一种头尾相接的循环等待资源关系
+		产生死锁的原因：
+			1.系统资源不足
+			2.进程运行推进的顺序不合适
+			3.资源分配不当
+	5.线程池
+		线程池的优势：
+			降低资源消耗；
+			提高响应速度；
+			提高线程的可管理性。
+			
+		线程池的三大方法（本质都是调用了七大参数）：
+			Executors.newFixedThreadPool(int):执行长期任务性能好，创建一个线程池，一池有N个固定的线程，有固定线程数的线程。
+			Executors.newSingleThreadExecutor():只有一个线程
+			Executors.newCachedThreadPool():执行很多短期异步任务，线程池需要创建新线程，但在先构建的线程可用时将重用他们，可扩容。
+			
+		七大参数（ThreadPoolExecutor）：
+			corePoolSize：核心线程数
+			maximumPoolSize：最大线程数
+			keepAliveTime：空闲的线程保留的时间
+			TimeUnit：空闲线程的保留时间单位
+			BlockingQueue：阻塞队列
+			ThreadFactory：线程工厂
+			RejectedExecutionHandler；队列已满，而且任务量大于最大线程的异常处理策略
+				ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException
+				ThreadPoolExecutor.DiscardPolicy:也是丢弃任务，但是不抛出异常
+				ThreadPoolExecutor.DiscardOldestPolicy:丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
+				ThreadPoolExecutor.CallerRunsPolicy:由调用线程处理该任务
+		底层工作原理：任务进入后，先判断核心池是否已满，若未满，创建新线程执行任务，若已满；则判断队列是否已满，若未满，将任务添加到任务队列中，若已满；则判断线程池是否已满，若未满，则创建新线程执行任务，若已满，触发拒绝策略。（当一个线程无事可做超过一定时间后，线程会判断：1）若线程数大于corePoolSize，则会被停掉；2）若线程池的所有任务完成后，最终会收缩到corePoolSize）
+		
+		在工作中单一的/固定的/可变的三种创建线程池的方法哪个用的多？
+			答案是一个都不用，工作中使用自定义的
+			
+		线程是否越多越好？
+			CPU
+这种任务消耗的主要是 CPU 资源，可以将线程数设置为 N（CPU 核心数）+1，比 CPU 核心数多出
+来的一个线程是为了防止线程偶发的缺页中断，或者其它原因导致的任务暂停而带来的影响。一旦
+任务暂停，CPU 就会处于空闲状态，而在这种情况下多出来的一个线程就可以充分利用 CPU 的空
+闲时间。
+IO密集型
+这种任务应用起来，系统会用大部分的时间来处理 I/O 交互，而线程在处理 I/O 的时间段内不会占
+用 CPU 来处理，这时就可以将 CPU 交出给其它线程使用。因此在 I/O 密集型任务的应用中，我们
+可以多配置一些线程，具体的计算方法是 ： 核心线程数=CPU核心数量*2。
+	6.常见的阻塞队列
+		1.ArrayBlockingQueue 是一个基于数组结构的有界阻塞队列，此队列按FIFO（先进先出）原则对元素进行排序。
+		
+		2.LinkedBlockingQueue 一个基于链表结构的阻塞队列，此队列按FIFO （先进先出） 排序元素，吞吐量通常要高于 ArrayBlockingQueue 。
+		
+		3.SynchronousQueue 一个不存储元素的阻塞队列。
+		
+		4.PriorityBlockingQueue 一个具有优先级的无限阻塞队列。 PriorityBlockingQueue 也是基于最小二叉堆实现
+		
+		5.DelayQueue
+			1.只有当其指定的延迟时间到了，才能够从队列中获取到该元素。
+			2.DelayQueue 是一个没有大小限制的队列，
+			3.因此往队列中插入数据的操作（生产者）永远不会被阻塞，而只有获取数据的操作（消费者）才会被阻塞。
+			
+		这里能说出前三种也就差不多了，如果能说全那是最好。
+	7.JMM（Java memory model）
+		谈谈你对volatile的理解：
+			1.保证可见性
+			2.不保证原子性
+			3.禁止指令重排
+		
+		什么是JMM？（JMM本身是一种抽象的概念，并不真实存在，描述的是一组规则或者规范）
+			1.线程解锁前，必须把共享变量的值刷新回主内存
+			2.线程加锁前，必须读取主内存的最新值到自己的工作内存
+			3.加锁解锁是同一把锁
+		
+		出现JMM的原因：当一个线程修改了自己工作内存中变量，但其他线程是不可见的，会导致线程不安全的问题。
+	8..volatile
+		num++是非线程安全的，该如何解决？
+			AtomicInteger num = new AtomicInteger()
+			num.getAndIncrement()
+			
+		指令重排定义：计算机在执行程序时，为了提高性能，编译器和处理器常常会对指令做重排。
+		
+		内存屏障（Memory Barrier）：
+			又称内存栅栏，是一个CPU指令，作用：
+				1.保证特定的执行顺序
+				2.保证某些变量的内存可见性
+		工作内存与主内存延迟现象导致的可见性问题，可以使用synchronized或volatile关键字解决，它们都可以使一个线程修改后的变量立即对其他线程可见。
+	9.如何停止一个正在运行的线程
+		1、使用退出标志，使线程正常退出，也就是当run方法完成后线程终止。
+		2、使用stop方法强行终止，但是不推荐这个方法，因为stop和suspend及resume一样都是过期作废的方法。
+		3、使用interrupt方法中断线程。
+	10.线程池如何关闭？
+		线程池提供了两个关闭方法，shutdownNow和shuwdown方法。
+		shutdownNow方法的解释是：线程池拒接收新提交的任务，同时立马关闭线程池，线程池里的任务不再执行。
+		shutdown方法的解释是：线程池拒接收新提交的任务，同时等待线程池里的任务执行完毕后关闭线程池。
+二、ReentrantLock和AQS
+	1.AQS结构
+		属性
+			 // 头结点，可以直接把它当做 当前持有锁的线程
+			private transient volatile Node head;
+
+			// 阻塞的尾结点，每个新的节点进来，都插入到最后，也就形成了一个链表
+			private transient volatile Node tail;
+
+			// 这个是最重要的，代表当前锁的状态，0代表没有被占用，大于0代表有线程持有当前锁
+			// 这个值可以大于1，是因为锁可以重入，每次重入都加上1
+			private volatile int state;
+
+			// 代表当前持有独占锁的线程，举个最重要的例子，因为锁可以重入
+			// reentrantLock.lock()可以嵌套多次，所以每次用这个来判断线程是否已经拥有了锁
+			// if (currentThread == getExclusiveOwnerThread()) {state++}
+			private transient Thread exclusiveOwnerThread; // 这个属性继承自AbstractOwnableSynchonizer
+		
+		AbstractQueuedSynchronizer的等待队列
+		
+		等待队列中每个线程被包装成Node实例，数据结构是链表。
+			static final class Node {
+			// 标识节点当前在共享模式下
+			static final Node SHARED = new Node();
+			// 标识节点当前在独占模式下
+			static final Node EXCLUSIVE = null;
+
+			// =======下面的几个int常量是给waitStatus用的========
+			// 代表此线程取消了争夺这个锁
+			static final int CANCELLED =  1;
+			// 官方的描述是，其表示当前node的后继节点对应的线程需要被唤醒
+			static final int SIGNAL    = -1;
+
+			static final int CONDITION = -2;
+
+			static final int PROPAGATE = -3;
+
+			// 可以这样理解，暂时只需要知道如果这个值 大于0 代表此线程取消了等待
+			//          ps：半天抢不到锁了，不抢了，ReentrantLock是可以指定timeout的
+			volatile int waitStatus;
+			// 前驱节点的引用
+			volatile Node prev;
+			// 后继节点的引用
+			volatile Node next;
+			// 这个就是线程自身
+			volatile Thread thread;
+			}
+			
+		Node的数据结构其实也挺简单的，就是thread + waitStatus+pre+next四个属性而已
+	2.ReentrantLock
+		1.ReentrantLock的公平锁
+			ReenTrantLock在内部用了Sync来管理锁，所以真正的获取锁和释放锁是由sync的实现类来控制的。
+			Sync有两个实现，分别为NonFairSync(非公平锁）和FairSync(公平锁)，我们先看下FairSync部分。
+			
+			1.线程抢锁
+				1.首先，通过lock方法抢锁。
+				2.然后事实上会调用acquire，这个方法是来自父类AQS的，这个方法里面，会调用tryAcquire来尝试获取，有可能直接获取成功了，也就不需要排队了；如果说失败的话，这个时候就需要把当前线程挂起，放到阻塞队列中。
+				3.这个tryAcquire方法在AQS是个抽象方法，需要子类实现，而ReentrantLock中的公平锁的实现方法是这样的。首先尝试获取锁，如果返回true：则说明1.没有线程在等待锁；2.重入锁，线程本来就持有锁，因此可以直接获取。 具体实现是：通过getState判断当前状态，如果为0则可以尝试获取锁，但是是公平锁，就要考虑先来后到，看队列里面是否有等待的，如果没有，则可以CAS尝试获取锁，不成功的话，则说明几乎同时被另一个线程抢占了。如果说state不为0 ，则判断是否持有锁的线程是否是当前为线程，如果是则可以进行重入，加上acquires之后setState状态。如果前面两个都没有成功，则说明没有获取到，返回false。
+				
+				4.返回false之后，将执行acquireQueued(addWaiter(Node.EXCLUSIVE), arg),首先将线程包装成node，同时进入队列，设置这个节点为独占模式，然后就是将这个节点加入到阻塞队列的最后面去。具体操作是，首先判断这个尾结点是否为空，如果不为空，则将它放到后面，首先它指向前驱结点，再通过cas设置前驱节点指向它。如果尾结点为空，则要进行enq()方法。
+				5.enq()主要采用自旋的方式入队，到这个方法只有两种可能：等待队列为空，或者有线程竞争入队。自旋这里的语义是：CAS设置tail过程中，竞争一次竞争不到，就多次竞争，总会排到的。具体实现是，首先获取队尾，如果为空，则先设置一个head节点进去，设置完了后继续for循环，就到下面的else，然后同样的方法，将节点设置到队尾。
+				6.经过addWaiter()之后，此时已经进入阻塞队列，然后需要acquireQueued(),如果返回true，那么就会进入selfInterrupt(),所以正常情况下会返回false，这个方法非常重要，应该说是真正的线程挂起，然后被唤醒后获取锁，都在这个方法了。acquireQueued(final Node node, int arg)，具体操作是，获得当前node的前驱节点，由于enq()方法里面，head是延迟初始化的(下一个for循环，才会向后面添加节点)，并且new Node()此时并没有设置任何线程，因此当前head不属于任何一个线程，因此可以试一下，就是通过tryAcquire简单cas设置一下state；如果前面if没有进去，则说明当前node不是队头要么就是没有抢过别人，因此继续往下shouldParkAfterFailedAcquire(p, node) &&
+                    parkAndCheckInterrupt()。
+				7.会到这里，也就是说明没有抢到锁，这个方法主要说的是"当前线程没有抢到锁，是否需要挂起当前线程？"，这个方法有两个参数，一个是前驱节点，第二个参数是当前线程的节点，获取前驱节点的状态，如果是-1，则说明前驱节点状态正常，当前线程需要挂起，直接返回true。如果waitStatus大于0，则说明前驱节点取消了排队，那么就会阻塞队列队尾往前寻找waitStatus<=0的节点，依赖前驱节点来唤醒自己，并设置两者的指向关系；如果说既不是-1，也不是1，那么只有可能是0，则会通过cas将前驱节点waitStatus设置为Node.SINGAL。到这里也就结束了，会返回false，会在外层方法再走一次for循环，此时就会从第一个分支也就是等于-1，返回true。
+				8.刚才那个方法结束后，如果返回true，则说明前驱节点状态为-1，那么当前线程需要被挂起，等待以后被唤醒，如果是false，则不需要挂起，原因在后面。
+				9.shouldParkAfterFailedAcquire(p,node)返回true之后，那么需要执行parkAndCheckInterrupt();这个方法很简单，就是使用LockSupport.park(this)来挂起线程，然后就停在这里了，等待被唤醒
+				10.然后现在考虑shouldParkAfterFailedAcquire(p, node)返回false的情况。我们可以想到，其实第一次进来的时候，一般都不会返回true，原因很简单，前驱节点的waitStatus=-1，是依赖于后继节点设置的。也就是说，我还没给前驱设置-1，怎么可能是true，但是看到这个方法是在循环里的，所以第二次进来前驱状态就是-1了。因此返回false不直接挂起线程的原因是，为了应对经过这个方法后，node已经是head的直接后继节点了(head节点的状态是-1)
+				
+				说到这里，也就明白了，多看几遍final boolean acquireQueued(final Node node, int arg)这个方法吧。自己推演下各个分支怎么走，那种情况下会发生什么，走到哪里。
+			2.解锁操作
+				介绍下唤醒的动作。我们知道，正常情况下，如果线程没获得到锁，线程会被LockSupport.park(this)挂起停止，等待被唤醒；
+				
+				1.唤醒是通过unlock()操作,里面事实上调用了sync.release(1)
+				2.release方法里面具体操作是先tryRelease()，这里会计算释放后的state值，并且会判断当前线程是否是持有锁的线程，如果不是，则会抛出异常。然后判断是否是完全释放锁了也即是state=0，如果释放了，那么将AQS中的持有锁的线程设置为null，并更新state状态。然后就会唤醒后面的线程
+				3.首先取得阻塞队列中的head节点，然后去唤醒它。unparkSuccessor(Node node)具体操作是，得到head节点的waitStatue看是否<0,如果小于0，那么就把它的waitStatus设置为0。接着就是唤醒后面的节点，有可能后继节点取消了等待，那么从后往前遍历寻找最靠前的<=0的节点，找到后通过LockSupport.unpart(s.thread)给唤醒。
+				
+				4.唤醒后的线程继续接着往前走
+				private final boolean parkAndCheckInterrupt() {
+					LockSupport.park(this);  // 刚刚线程被挂起在这里了
+					return Thread.interrupted();
+				}
+			3.总结
+				在并发情况下，加锁和解锁需要以下三个部件的协调:
+					1.锁状态。我们要知道锁是不是被别的线程占有了，这个就是state的作用，它为0的时候代表没有线程占有锁，可以去争抢这个锁，用CAS将state设为1，如果CAS成功，说明抢到了锁，这样其他线程就抢不到了，如果锁重入的话，state进行+1就可以，解锁就是减1，直到state又变为0，代表释放锁，所以lock()和unlock()必须要配置啊。然后唤醒等待队列中的第一个线程，让其来占有锁。
+					2.线程的阻塞和解除阻塞。AQS采用了LockSupport.park(thread)来挂起线程，用unpark来唤醒锁。
+					3.阻塞队列。因为争抢锁的线程可能很多，但是只能有一个线程拿到锁，其他的线程都必须等待，这个时候就需要一个queue来管理这些线程，AQS用的是一个FIFO的队列，就是一个链表，每个node都持有后继节点的引用。
+	2.公平锁与非公平锁的不同
+		ReentrantLock默认采用非公平锁，除非在默认方法中初入参数true.
+		
+		公平锁和非公平锁只有两处不同:
+			1.非公平锁在调用lock后，首先就会调用CAS进行一次抢锁，如果这个时候恰巧锁没有被占用，那么直接就获取到锁返回了。
+			2.非公平锁在CAS失败后，和公平锁一样都会进入到tryAcquire方法，在tryAcquire方法中，如果发现锁这个时候释放了(state 0)，非公平锁会直接CAS抢锁，但是公平锁会判断等待队列是否有线程处于等待状态，如果有则不去抢锁，乖乖排到后面。
+		
+		公平锁和非公平锁就这两点区别，如果这两次CAS都不成功，那么后面非公平锁和公平锁是一样的，都要进入阻塞队列等待唤醒。
+		相对来说，非公平锁会有更好的性能，因为它的吞吐量比较大。当然，非公平锁让获取锁的时间变得更加不确定，可能会导致阻塞队列中的线程长期处于饥饿状态。
