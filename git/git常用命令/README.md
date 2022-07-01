@@ -1,6 +1,7 @@
 ## git常用命令
 ###常用
 - git add .把所有更改的文件添加到暂存区
+- git restore . 把修改的文件恢复
 - git commit -m '你的提交信息'把暂存区的文件提交到本地仓库
 - git push origin 当前分支把本地仓库推送到远程仓库
 - git pull把远程仓库的数据拉下来
