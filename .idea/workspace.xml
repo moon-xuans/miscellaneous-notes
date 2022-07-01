@@ -6,6 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="f8b6a110-459d-4d74-bb75-853537040607" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/408/操作系统/Linux.txt" beforeDir="false" afterPath="$PROJECT_DIR$/专业课/操作系统/Linux.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/408/操作系统/Linux相关命令.md" beforeDir="false" afterPath="$PROJECT_DIR$/专业课/操作系统/Linux相关命令.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/408/操作系统/操作系统笔记.txt" beforeDir="false" afterPath="$PROJECT_DIR$/专业课/操作系统/操作系统笔记.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/408/操作系统/操作系统重点.txt" beforeDir="false" afterPath="$PROJECT_DIR$/专业课/操作系统/操作系统重点.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/408/操作系统/页面置换算法.md" beforeDir="false" afterPath="$PROJECT_DIR$/专业课/操作系统/页面置换算法.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/408/数据结构/数据结构笔记.txt" beforeDir="false" afterPath="$PROJECT_DIR$/专业课/数据结构/数据结构笔记.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/408/计算机网络/计算机网络常见问答.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/专业课/计算机网络/计算机网络常见问答.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/408/计算机网络/计网笔记.txt" beforeDir="false" afterPath="$PROJECT_DIR$/专业课/计算机网络/计网笔记.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.en.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dt/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/临时.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/项目/Redission分布式锁.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/项目/开发工具的使用.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +98,7 @@
       <workItem from="1653398517675" duration="731000" />
       <workItem from="1655164385471" duration="846000" />
       <workItem from="1655822106070" duration="613000" />
-      <workItem from="1656641560085" duration="676000" />
+      <workItem from="1656641560085" duration="2070000" />
     </task>
     <servers />
   </component>
