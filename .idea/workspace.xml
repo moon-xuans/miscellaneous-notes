@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8b6a110-459d-4d74-bb75-853537040607" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JVM/笔记.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaEE/并发/笔记.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaEE/笔记.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/专业课/操作系统/操作系统笔记.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/专业课/操作系统/操作系统重点.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,12 +59,13 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/专业课/操作系统" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/专业课/操作系统" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -89,6 +94,7 @@
       <workItem from="1656659293289" duration="271000" />
       <workItem from="1656659808791" duration="617000" />
       <workItem from="1656905663302" duration="2478000" />
+      <workItem from="1657413923886" duration="857000" />
     </task>
     <servers />
   </component>
