@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8b6a110-459d-4d74-bb75-853537040607" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/JVM/笔记.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaEE/并发/笔记.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaEE/笔记.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/专业课/操作系统/操作系统笔记.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/专业课/操作系统/操作系统重点.txt" beforeDir="false" />
-    </list>
+    <list default="true" id="f8b6a110-459d-4d74-bb75-853537040607" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,7 +88,7 @@
       <workItem from="1656659293289" duration="271000" />
       <workItem from="1656659808791" duration="617000" />
       <workItem from="1656905663302" duration="2478000" />
-      <workItem from="1657413923886" duration="857000" />
+      <workItem from="1657413923886" duration="1575000" />
     </task>
     <servers />
   </component>
