@@ -4,14 +4,16 @@
 - git restore . 把修改的文件恢复
 - git commit -m '你的提交信息'把暂存区的文件提交到本地仓库
 - git push origin 当前分支把本地仓库推送到远程仓库
-- git pull把远程仓库的数据拉下来
-- git status查看状态
+- git pull 远程分支名称 把远程仓库的数据拉下来，并合并
+- git fetch 远程分支名称 把远程仓库的数据拉下来，但是不合并
+- git merge 分支 把当前分支和指定分支进行合并
+- git status 查看状态
 ### 分支
 - git checkout 某分支从当前分支切换到某分支
 - git checkout -b 新分支 origin/分支基于已有分支代码创建新的分支
 - git push origin 新分支把远程分支的代码推送到新分支上
-- git branch查看本地分支
-- git branch -r查看远程分支
+- git branch 查看本地分支
+- git branch -r 查看远程分支
 - git branch 新分支创建一个分支
 - git checkout -b 新分支切换到新分支上
 - git branch -d 本地分支删除本地分支
@@ -20,6 +22,7 @@
 - git reset --hard 提交回滚至此提交
 
 ### 解决冲突
+- git log 分支 分支 查看分支之间的区别
 - git pull origin 分支将冲突的分支拉下来
 此时就可以看到冲突的地方,在冲突的地方进行合并之后
 - git add .将修改的代码提交到暂存区
