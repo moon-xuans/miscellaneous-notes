@@ -8,6 +8,10 @@
 - git fetch 远程分支名称 把远程仓库的数据拉下来，但是不合并
 - git merge 分支 把当前分支和指定分支进行合并
 - git status 查看状态
+
+### 提交
+- git rebase -i 提交名称 将除了指定提交前的所有提交进行处理，可以进行合并
+
 ### 分支
 - git checkout 某分支从当前分支切换到某分支
 - git checkout -b 新分支 origin/分支基于已有分支代码创建新的分支
