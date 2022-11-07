@@ -10,6 +10,7 @@
 - git status 查看状态
 
 ### 提交
+- git log --oneline 查看提交日志(简洁版)
 - git rebase -i 提交名称 将除了指定提交前的所有提交进行处理，可以进行合并
 - git show 提交id 查看某次提交的修改内容
 
