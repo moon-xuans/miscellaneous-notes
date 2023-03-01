@@ -1,6 +1,6 @@
 linux与windows主机ping的时候，主机可以ping通linux，但是linux无法ping通windows：
 
-1.先看防火墙设置，是否有入栈规则，如果没有,则在cmd中执行命令，添加对应的规则
+先看防火墙设置，是否有入栈规则，如果没有,则在cmd中执行命令，添加对应的规则
 ```cmd
 New-NetFirewallRule -DisplayName "WSL" -Direction Inbound  -InterfaceAlias "vEthernet (WSL)"  -Action Allow
 ```
