@@ -1,0 +1,2 @@
+- ipconfig:查看网络
+- netstat -ano|findstr "8080" 查看8080端口对应的进程信息
