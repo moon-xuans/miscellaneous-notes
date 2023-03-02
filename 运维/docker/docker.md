@@ -1,10 +1,15 @@
 #### 1.重启docker服务后，容器自己停止了
-解决办法在/etc/docker/daemon.json添加
+解决办法1：在/etc/docker/daemon.json添加
 `"live-resotre": true`
 
 修改完成后，先执行`sudo systemctl daemon-reload`
 
 之后，再重启docker后，容器不会停止
+
+解决办法2：docker将容器设置成开机自启动
+```shell
+docker update mysql --restart=always
+```
 
 #### 2.删除容器时，报错`Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: 	Get http://%2Fvar%2Frun%2Fdocker.sock/v1.26/images/json: dial unix /var/run	/docker.sock: connect: permission denied“`
 
