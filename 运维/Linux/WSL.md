@@ -14,3 +14,14 @@ New-NetFirewallRule -DisplayName "WSL" -Direction Inbound  -InterfaceAlias "vEth
 service的原因是systemd没有启用，因此可以在/etc/wsl.conf中进行配置，具体可看官方文档
 https://learn.microsoft.com/zh-cn/windows/wsl/wsl-config
 
+#### 3.切换WSL用户
+需要在windows本机上看ubuntu的版本，路径为:C:\Users\86180\AppData\Local\Microsoft\WindowsApps
+
+ubuntu版本是2004
+
+然后使用命令，切换到root用户，也可以修改为自己
+```cmd
+ubuntu2004 config --default-user root
+
+ubuntu2004 config --default-user moon
+```
