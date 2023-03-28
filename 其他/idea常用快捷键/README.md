@@ -15,3 +15,5 @@
 - F4查看继承关系
 - Ctrl+Shift+h,查看方法在哪里被调用
 - 右键->Git->Annotate with...可以查看代码的历史
+- Ctrl+Alt+L,代码格式化
+- Ctrl+Home/End，首行/尾行

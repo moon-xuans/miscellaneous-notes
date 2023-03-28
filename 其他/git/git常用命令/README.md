@@ -41,6 +41,10 @@
 - git config --global user.name(email) 查看全局的用户名或者邮箱
 - git config --global --replace-all user.name "xxx" 修改全局的用户名或者邮箱
 
+统计代码行数：
+git log  --format='%aN' | sort -u | while read name; do echo -en "$name\t"; git log --author="$name" --pretty=tformat:  --since ==2023-03-01 --until=2023-03-28 --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -; done
+
+
 ### git stash
 **使用场景**
 
