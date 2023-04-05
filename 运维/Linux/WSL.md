@@ -25,3 +25,10 @@ ubuntu2004 config --default-user root
 
 ubuntu2004 config --default-user moon
 ```
+#### 4.在关闭hyper-v之后，wsl启动不了，显示0x80370102
+
+首先，确保在控制面板中启动功能里面开启虚拟化之后，通过管理员身份打开cmd输入bcdedit
+，查看hypervisorlaunchtype的状态，如果关闭了，则要将虚拟机监控程序设置为Auto
+```cmd
+bcdedit /set hypervisorlaunchtype Auto
+```
