@@ -32,3 +32,7 @@ ubuntu2004 config --default-user moon
 ```cmd
 bcdedit /set hypervisorlaunchtype Auto
 ```
+
+#### 5.docker上mysql启动失败
+
+wsl和windows上共用同一套端口，必须关闭windows上的mysql服务才可以。
