@@ -1,4 +1,4 @@
-#### 1.vagrant up 卡在booting vm
+#### 1.vagrant up 卡在booting vm(不确定)
 
 这是之前使用wsl的时候，将hypervisor设置成了Auto，需要关闭
 ```cmd
