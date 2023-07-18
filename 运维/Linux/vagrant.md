@@ -13,3 +13,6 @@ bcdedit /set hypervisorlaunchtype off
 
 在设备管理器的网络适配器中查看发现存在virtualbox的虚拟网卡，直接在virtualbox
 中的工具中的属性设置网卡的ip即可。
+
+
+test
